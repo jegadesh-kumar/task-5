@@ -1,0 +1,44 @@
+ps aux | head
+USER       PID %CPU %MEM COMMAND
+root         1  0.0  0.1 systemd
+anon      1023  0.2  1.3 bash
+redis     2049  1.1  4.7 redis-server
+nginx     3052  0.7  3.2 nginx: worker
+top - 15:42:37 up 2 days,  3:21,  1 user,  load average: 0.15, 0.12, 0.09
+Tasks: 127 total,   2 running, 125 sleeping,   0 stopped,   0 zombie
+%Cpu(s):  2.3 us,  0.7 sy,  0.0 ni, 96.8 id,  0.2 wa,  0.0 hi,  0.0 si,  0.0 st
+KiB Mem :  8001232 total,  1023456 free,  3456789 used,  3520987 buff/cache
+KiB Swap:  2097148 total,  2097148 free,        0 used.  4023456 avail Mem 
+
+  PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND
+ 2049 redis     20   0  123456  45678   2345 S   1.1  0.6   2:34.56 redis-server
+ 3052 nginx     20   0  234567  34567   4567 S   0.7  0.4   1:23.45 nginx: worker
+sleep 100 &
+[1] 9999
+
+ps aux | grep sleep
+anon      9999  0.0  0.1 sleep 100
+
+kill 9999
+kill -9 9999
+[1]+  Terminated              sleep 100
+ps -eo pid,stat,cmd | head
+  PID STAT CMD
+    1 Ss   /sbin/init
+  423 S    [kworker/0:1]
+  999 S    /usr/bin/dockerd
+sudo systemctl status cron  
+● cron.service - Regular background program processing daemon  
+   Loaded: loaded (/lib/systemd/system/cron.service; enabled; vendor preset: enabled)  
+   Active: active (running) since Sat 2023-11-18 15:43:21 UTC; 2 days ago  
+     Docs: man:cron(8)  
+ Main PID: 789 (cron)  
+    Tasks: 1 (limit: 4915)  
+   CGroup: /system.slice/cron.service  
+           └─789 /usr/sbin/cron -f
+sudo systemctl stop cron  
+sudo systemctl start cron  
+● cron.service - Regular background program processing daemon  
+   Loaded: loaded (/lib/systemd/system/cron.service; enabled; vendor preset: enabled)  
+   Active: active (running) since Mon 2023-11-20 12:00:01 UTC; 4s ago  
+     Docs: man:cron(8)
